@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Sleep and Employment: Predicting Job Classification through Data Analytics",
+    "section": "",
+    "text": "This study aims to predict job roles accurately by analyzing the relationship between sleep patterns, job classification, and other relevant factors. By utilizing sleep-related data and demographics in a model, the researchers seek to optimize workforce planning and develop personalized workplace strategies.\n\n\n\n\n\n#\nColumn\nNon-Null Count\nDtype\n\n\n\n\n0\nPerson ID\n374 non-null\nint64\n\n\n1\nGender\n374 non-null\nobject\n\n\n2\nAge\n374 non-null\nint64\n\n\n3\nOccupation\n374 non-null\nobject\n\n\n4\nSleep Duration\n374 non-null\nfloat64\n\n\n5\nQuality of Sleep\n374 non-null\nint64\n\n\n6\nPhysical Activity Level\n374 non-null\nint64\n\n\n7\nStress Level\n374 non-null\nint64\n\n\n8\nBMI Category\n374 non-null\nobject\n\n\n9\nBlood Pressure\n374 non-null\nobject\n\n\n10\nHeart Rate\n374 non-null\nint64\n\n\n11\nDaily Steps\n374 non-null\nint64\n\n\n12\nSleep Disorder\n155 non-null\nobject\n\n\n\n\n\n\n\n\n\nWord Cloud\n\n\n\n\n\n#\nOccupation\nCount\n\n\n\n\n0\nAccountant\n37\n\n\n1\nDoctor\n71\n\n\n2\nEngineer\n63\n\n\n3\nLawyer\n47\n\n\n4\nManager\n1\n\n\n5\nNurse\n73\n\n\n6\nSales Rep\n2\n\n\n7\nSalesperson\n32\n\n\n8\nScientist\n4\n\n\n9\nSoftware Eng\n4\n\n\n10\nTeacher\n40\n\n\n\n\n\n\n\n\n   \n\nSTEM\n\n STEM   \n\nAccounting\n\n Accounting   \n\nSTEM->Accounting\n\n    \n\nScientist\n\n Scientist   \n\nSTEM->Scientist\n\n    \n\nSoftware_Engineering\n\n Software_Engineering   \n\nSTEM->Software_Engineering\n\n    \n\nEngineering\n\n Engineering   \n\nSTEM->Engineering\n\n    \n\nMEDICAL\n\n MEDICAL   \n\nDoctor\n\n Doctor   \n\nMEDICAL->Doctor\n\n    \n\nNurse\n\n Nurse   \n\nMEDICAL->Nurse\n\n    \n\nSALES\n\n SALES   \n\nSalesperson\n\n Salesperson   \n\nSALES->Salesperson\n\n    \n\nSales_Rep\n\n Sales_Rep   \n\nSALES->Sales_Rep\n\n    \n\nManager\n\n Manager   \n\nSALES->Manager\n\n    \n\nGROUP\n\n GROUP   \n\nGROUP->STEM\n\n    \n\nGROUP->MEDICAL\n\n    \n\nGROUP->SALES\n\n    \n\nTEACHER\n\n TEACHER   \n\nGROUP->TEACHER\n\n    \n\nLAWYER\n\n LAWYER   \n\nGROUP->LAWYER\n\n   \n\n\n\n\n\n\n\n\n#\nOccupation Group\nCount\n\n\n\n\n0\nSTEM\n108\n\n\n1\nMedical\n144\n\n\n2\nSales\n35\n\n\n3\nTeacher\n40\n\n\n4\nLawyer\n47"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  }
+]

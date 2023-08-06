@@ -1,0 +1,1833 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Python-Final - Sleep and Employment: Predicting Job Classification through Data Analytics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Python-Final</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#overview-of-dataset" id="toc-overview-of-dataset" class="nav-link" data-scroll-target="#overview-of-dataset">Overview of Dataset</a></li>
+  <li><a href="#occupation-by-the-numbers" id="toc-occupation-by-the-numbers" class="nav-link" data-scroll-target="#occupation-by-the-numbers">Occupation By The Numbers</a></li>
+  </ul></li>
+  <li><a href="#problem-statement" id="toc-problem-statement" class="nav-link" data-scroll-target="#problem-statement">Problem Statement</a></li>
+  <li><a href="#research-questions" id="toc-research-questions" class="nav-link" data-scroll-target="#research-questions">Research Question(s)</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#discussion-and-implications" id="toc-discussion-and-implications" class="nav-link" data-scroll-target="#discussion-and-implications">Discussion and Implications</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix">Appendix</a></li>
+  <li><a href="#assuming-sleep-is-your-dataframe" id="toc-assuming-sleep-is-your-dataframe" class="nav-link" data-scroll-target="#assuming-sleep-is-your-dataframe">Assuming ‘sleep’ is your DataFrame</a></li>
+  <li><a href="#one-hot-encode-the-categorical-columns-if-needed" id="toc-one-hot-encode-the-categorical-columns-if-needed" class="nav-link" data-scroll-target="#one-hot-encode-the-categorical-columns-if-needed">One-hot encode the categorical columns (if needed)</a></li>
+  <li><a href="#combine-the-one-hot-encoded-features-with-other-numerical-features" id="toc-combine-the-one-hot-encoded-features-with-other-numerical-features" class="nav-link" data-scroll-target="#combine-the-one-hot-encoded-features-with-other-numerical-features">Combine the one-hot encoded features with other numerical features</a></li>
+  <li><a href="#support-vector-machine-svm-classifier" id="toc-support-vector-machine-svm-classifier" class="nav-link" data-scroll-target="#support-vector-machine-svm-classifier">Support Vector Machine (SVM) Classifier</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Sleep and Employment: Predicting Job Classification through Data Analytics</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>This study aims to predict job roles accurately by analyzing the relationship between sleep patterns, job classification, and other relevant factors. By utilizing sleep-related data and demographics in a model, the researchers seek to optimize workforce planning and develop personalized workplace strategies.</p>
+<section id="overview-of-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="overview-of-dataset">Overview of Dataset</h2>
+<table class="table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Column</th>
+<th>Non-Null Count</th>
+<th>Dtype</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>Person ID</td>
+<td>374 non-null</td>
+<td>int64</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Gender</td>
+<td>374 non-null</td>
+<td>object</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Age</td>
+<td>374 non-null</td>
+<td>int64</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Occupation</td>
+<td>374 non-null</td>
+<td>object</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Sleep Duration</td>
+<td>374 non-null</td>
+<td>float64</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>Quality of Sleep</td>
+<td>374 non-null</td>
+<td>int64</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>Physical Activity Level</td>
+<td>374 non-null</td>
+<td>int64</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>Stress Level</td>
+<td>374 non-null</td>
+<td>int64</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>BMI Category</td>
+<td>374 non-null</td>
+<td>object</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>Blood Pressure</td>
+<td>374 non-null</td>
+<td>object</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>Heart Rate</td>
+<td>374 non-null</td>
+<td>int64</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>Daily Steps</td>
+<td>374 non-null</td>
+<td>int64</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>Sleep Disorder</td>
+<td>155 non-null</td>
+<td>object</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="occupation-by-the-numbers" class="level2">
+<h2 class="anchored" data-anchor-id="occupation-by-the-numbers">Occupation By The Numbers</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="word_cloud.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Word Cloud</figcaption><p></p>
+</figure>
+</div>
+<table class="table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Occupation</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>Accountant</td>
+<td>37</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Doctor</td>
+<td>71</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Engineer</td>
+<td>63</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Lawyer</td>
+<td>47</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Manager</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>Nurse</td>
+<td>73</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>Sales Rep</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>Salesperson</td>
+<td>32</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>Scientist</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>Software Eng</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>Teacher</td>
+<td>40</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<p>
+<svg width="672" height="480" viewbox="0.00 0.00 463.00 328.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 324)"> <polygon fill="white" stroke="transparent" points="-4,4 -4,-324 459,-324 459,4 -4,4"></polygon> <!-- STEM --> <g id="node1" class="node">
+<title>
+STEM
+</title>
+<polygon fill="lightpink" stroke="black" points="352.65,-160.29 298.65,-160.29 298.65,-124.29 352.65,-124.29 352.65,-160.29"></polygon> <text text-anchor="middle" x="325.65" y="-138.09" font-family="Times,serif" font-size="14.00">STEM</text> </g> <!-- Accounting --> <g id="node2" class="node">
+<title>
+Accounting
+</title>
+<polygon fill="lightblue" stroke="black" points="447.54,-227.32 365.9,-227.32 365.9,-191.32 447.54,-191.32 447.54,-227.32"></polygon> <text text-anchor="middle" x="406.72" y="-205.12" font-family="Times,serif" font-size="14.00">Accounting</text> </g> <!-- STEM&#45;&gt;Accounting --> <g id="edge2" class="edge">
+<title>
+STEM-&gt;Accounting
+</title>
+<path fill="none" stroke="black" d="M347.8,-160.6C356.81,-168.05 367.36,-176.77 377.02,-184.76"></path> <polygon fill="black" stroke="black" points="374.94,-187.58 384.88,-191.25 379.4,-182.19 374.94,-187.58"></polygon> </g> <!-- Scientist --> <g id="node11" class="node">
+<title>
+Scientist
+</title>
+<polygon fill="lightblue" stroke="black" points="454.69,-152.01 390.25,-152.01 390.25,-116.01 454.69,-116.01 454.69,-152.01"></polygon> <text text-anchor="middle" x="422.47" y="-129.81" font-family="Times,serif" font-size="14.00">Scientist</text> </g> <!-- STEM&#45;&gt;Scientist --> <g id="edge3" class="edge">
+<title>
+STEM-&gt;Scientist
+</title>
+<path fill="none" stroke="black" d="M352.88,-139.96C361.33,-139.24 370.86,-138.42 380.09,-137.63"></path> <polygon fill="black" stroke="black" points="380.64,-141.1 390.31,-136.76 380.04,-134.12 380.64,-141.1"></polygon> </g> <!-- Software_Engineering --> <g id="node12" class="node">
+<title>
+Software_Engineering
+</title>
+<polygon fill="lightblue" stroke="black" points="348.22,-111.44 206.3,-111.44 206.3,-75.44 348.22,-75.44 348.22,-111.44"></polygon> <text text-anchor="middle" x="277.26" y="-89.24" font-family="Times,serif" font-size="14.00">Software_Engineering</text> </g> <!-- STEM&#45;&gt;Software_Engineering --> <g id="edge4" class="edge">
+<title>
+STEM-&gt;Software_Engineering
+</title>
+<path fill="none" stroke="black" d="M307.63,-124.1C305.97,-122.42 304.27,-120.7 302.56,-118.98"></path> <polygon fill="black" stroke="black" points="304.66,-116.12 295.13,-111.48 299.68,-121.05 304.66,-116.12"></polygon> </g> <!-- Engineering --> <g id="node13" class="node">
+<title>
+Engineering
+</title>
+<polygon fill="lightblue" stroke="black" points="414.21,-59.93 329.37,-59.93 329.37,-23.93 414.21,-23.93 414.21,-59.93"></polygon> <text text-anchor="middle" x="371.79" y="-37.73" font-family="Times,serif" font-size="14.00">Engineering</text> </g> <!-- STEM&#45;&gt;Engineering --> <g id="edge5" class="edge">
+<title>
+STEM-&gt;Engineering
+</title>
+<path fill="none" stroke="black" d="M334.11,-123.88C341.14,-108.6 351.23,-86.65 359.21,-69.31"></path> <polygon fill="black" stroke="black" points="362.39,-70.77 363.38,-60.22 356.03,-67.85 362.39,-70.77"></polygon> </g> <!-- MEDICAL --> <g id="node3" class="node">
+<title>
+MEDICAL
+</title>
+<polygon fill="lightpink" stroke="black" points="170.23,-239.49 90.69,-239.49 90.69,-203.49 170.23,-203.49 170.23,-239.49"></polygon> <text text-anchor="middle" x="130.46" y="-217.29" font-family="Times,serif" font-size="14.00">MEDICAL</text> </g> <!-- Doctor --> <g id="node4" class="node">
+<title>
+Doctor
+</title>
+<polygon fill="lightgreen" stroke="black" points="55.02,-238.95 0.26,-238.95 0.26,-202.95 55.02,-202.95 55.02,-238.95"></polygon> <text text-anchor="middle" x="27.64" y="-216.75" font-family="Times,serif" font-size="14.00">Doctor</text> </g> <!-- MEDICAL&#45;&gt;Doctor --> <g id="edge7" class="edge">
+<title>
+MEDICAL-&gt;Doctor
+</title>
+<path fill="none" stroke="black" d="M90.41,-221.28C82.09,-221.23 73.34,-221.19 65.11,-221.15"></path> <polygon fill="black" stroke="black" points="65.05,-217.64 55.03,-221.09 65.02,-224.64 65.05,-217.64"></polygon> </g> <!-- Nurse --> <g id="node5" class="node">
+<title>
+Nurse
+</title>
+<polygon fill="lightgreen" stroke="black" points="144.07,-288.81 90.07,-288.81 90.07,-252.81 144.07,-252.81 144.07,-288.81"></polygon> <text text-anchor="middle" x="117.07" y="-266.61" font-family="Times,serif" font-size="14.00">Nurse</text> </g> <!-- MEDICAL&#45;&gt;Nurse --> <g id="edge8" class="edge">
+<title>
+MEDICAL-&gt;Nurse
+</title>
+<path fill="none" stroke="black" d="M125.55,-239.57C125.26,-240.65 124.96,-241.74 124.66,-242.83"></path> <polygon fill="black" stroke="black" points="121.22,-242.16 121.98,-252.73 127.98,-243.99 121.22,-242.16"></polygon> </g> <!-- SALES --> <g id="node6" class="node">
+<title>
+SALES
+</title>
+<polygon fill="lightpink" stroke="black" points="187.74,-125.32 129.17,-125.32 129.17,-89.32 187.74,-89.32 187.74,-125.32"></polygon> <text text-anchor="middle" x="158.45" y="-103.12" font-family="Times,serif" font-size="14.00">SALES</text> </g> <!-- Salesperson --> <g id="node7" class="node">
+<title>
+Salesperson
+</title>
+<polygon fill="lightyellow" stroke="black" points="129.9,-37.03 47.14,-37.03 47.14,-1.03 129.9,-1.03 129.9,-37.03"></polygon> <text text-anchor="middle" x="88.52" y="-14.83" font-family="Times,serif" font-size="14.00">Salesperson</text> </g> <!-- SALES&#45;&gt;Salesperson --> <g id="edge10" class="edge">
+<title>
+SALES-&gt;Salesperson
+</title>
+<path fill="none" stroke="black" d="M143.96,-89.03C133.93,-76.36 120.42,-59.31 109.25,-45.21"></path> <polygon fill="black" stroke="black" points="111.95,-42.97 102.99,-37.3 106.46,-47.31 111.95,-42.97"></polygon> </g> <!-- Sales_Rep --> <g id="node8" class="node">
+<title>
+Sales_Rep
+</title>
+<polygon fill="lightyellow" stroke="black" points="245.6,-35.61 170.4,-35.61 170.4,0.39 245.6,0.39 245.6,-35.61"></polygon> <text text-anchor="middle" x="208" y="-13.41" font-family="Times,serif" font-size="14.00">Sales_Rep</text> </g> <!-- SALES&#45;&gt;Sales_Rep --> <g id="edge11" class="edge">
+<title>
+SALES-&gt;Sales_Rep
+</title>
+<path fill="none" stroke="black" d="M168.48,-89.17C175.53,-76.4 185.09,-59.09 193.04,-44.7"></path> <polygon fill="black" stroke="black" points="196.22,-46.18 197.99,-35.73 190.09,-42.8 196.22,-46.18"></polygon> </g> <!-- Manager --> <g id="node9" class="node">
+<title>
+Manager
+</title>
+<polygon fill="lightyellow" stroke="black" points="91.41,-131.73 25.91,-131.73 25.91,-95.73 91.41,-95.73 91.41,-131.73"></polygon> <text text-anchor="middle" x="58.66" y="-109.53" font-family="Times,serif" font-size="14.00">Manager</text> </g> <!-- SALES&#45;&gt;Manager --> <g id="edge12" class="edge">
+<title>
+SALES-&gt;Manager
+</title>
+<path fill="none" stroke="black" d="M129.05,-109.21C120.53,-109.76 111.04,-110.36 101.86,-110.95"></path> <polygon fill="black" stroke="black" points="101.45,-107.47 91.7,-111.61 101.9,-114.46 101.45,-107.47"></polygon> </g> <!-- GROUP --> <g id="node10" class="node">
+<title>
+GROUP
+</title>
+<polygon fill="lightpink" stroke="black" points="263.33,-208.7 199.42,-208.7 199.42,-172.7 263.33,-172.7 263.33,-208.7"></polygon> <text text-anchor="middle" x="231.37" y="-186.5" font-family="Times,serif" font-size="14.00">GROUP</text> </g> <!-- GROUP&#45;&gt;STEM --> <g id="edge1" class="edge">
+<title>
+GROUP-&gt;STEM
+</title>
+<path fill="none" stroke="black" d="M263.29,-174.31C271.69,-170 280.8,-165.31 289.41,-160.9"></path> <polygon fill="black" stroke="black" points="291.19,-163.92 298.48,-156.24 287.99,-157.69 291.19,-163.92"></polygon> </g> <!-- GROUP&#45;&gt;MEDICAL --> <g id="edge6" class="edge">
+<title>
+GROUP-&gt;MEDICAL
+</title>
+<path fill="none" stroke="black" d="M199.44,-200.44C193.24,-202.33 186.59,-204.36 179.97,-206.38"></path> <polygon fill="black" stroke="black" points="178.89,-203.05 170.34,-209.32 180.93,-209.75 178.89,-203.05"></polygon> </g> <!-- GROUP&#45;&gt;SALES --> <g id="edge9" class="edge">
+<title>
+GROUP-&gt;SALES
+</title>
+<path fill="none" stroke="black" d="M215.55,-172.61C205.42,-161.02 192.12,-145.82 180.91,-133"></path> <polygon fill="black" stroke="black" points="183.46,-130.6 174.24,-125.38 178.19,-135.21 183.46,-130.6"></polygon> </g> <!-- TEACHER --> <g id="node14" class="node">
+<title>
+TEACHER
+</title>
+<polygon fill="lightpink" stroke="black" points="344.06,-293.5 263.95,-293.5 263.95,-257.5 344.06,-257.5 344.06,-293.5"></polygon> <text text-anchor="middle" x="304.01" y="-271.3" font-family="Times,serif" font-size="14.00">TEACHER</text> </g> <!-- GROUP&#45;&gt;TEACHER --> <g id="edge13" class="edge">
+<title>
+GROUP-&gt;TEACHER
+</title>
+<path fill="none" stroke="black" d="M247.13,-209.1C257.29,-220.96 270.65,-236.55 281.87,-249.65"></path> <polygon fill="black" stroke="black" points="279.36,-252.11 288.53,-257.43 284.68,-247.55 279.36,-252.11"></polygon> </g> <!-- LAWYER --> <g id="node15" class="node">
+<title>
+LAWYER
+</title>
+<polygon fill="lightpink" stroke="black" points="249.19,-319.62 173.44,-319.62 173.44,-283.62 249.19,-283.62 249.19,-319.62"></polygon> <text text-anchor="middle" x="211.32" y="-297.42" font-family="Times,serif" font-size="14.00">LAWYER</text> </g> <!-- GROUP&#45;&gt;LAWYER --> <g id="edge14" class="edge">
+<title>
+GROUP-&gt;LAWYER
+</title>
+<path fill="none" stroke="black" d="M228.06,-209.01C224.9,-226.51 220.08,-253.15 216.42,-273.37"></path> <polygon fill="black" stroke="black" points="212.97,-272.81 214.63,-283.27 219.86,-274.06 212.97,-272.81"></polygon> </g> </g>
+</svg>
+</p>
+</div>
+</div>
+</div>
+<table class="table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Occupation Group</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>STEM</td>
+<td>108</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Medical</td>
+<td>144</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Sales</td>
+<td>35</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Teacher</td>
+<td>40</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Lawyer</td>
+<td>47</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="problem-statement" class="level1">
+<h1>Problem Statement</h1>
+<p>The research aims to improve human resource management strategies and personalized workplace interventions by accurately predicting job classifications through the analysis of sleep patterns and other health-related factors, exploring the relationship between sleep, stress, and job characteristics.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="sleep.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Histogram</figcaption><p></p>
+</figure>
+</div>
+<table class="table">
+<caption>Stress Level by the Numbers</caption>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Stress Level</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>3</td>
+<td>71</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>4</td>
+<td>70</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>5</td>
+<td>67</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>6</td>
+<td>46</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>7</td>
+<td>50</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>8</td>
+<td>70</td>
+</tr>
+</tbody>
+</table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="freq.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Histogram</figcaption><p></p>
+</figure>
+</div>
+<table class="table">
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Quality of Sleep</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>5</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>6</td>
+<td>105</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>7</td>
+<td>77</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>8</td>
+<td>109</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>9</td>
+<td>71</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="research-questions" class="level1">
+<h1>Research Question(s)</h1>
+<ul>
+<li><p>To what extent do sleep patterns, along with other factors, correlate with a person’s job classification?</p></li>
+<li><p>How accurately can a classification model predict a person’s job based on their sleep patterns and other relevant factors?</p></li>
+</ul>
+<table class="table">
+<caption>Occupation by Gender</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Occupation</th>
+<th>Female</th>
+<th>Male</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Accountant</td>
+<td>36.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td>Doctor</td>
+<td>2.0</td>
+<td>69.0</td>
+</tr>
+<tr class="odd">
+<td>Engineer</td>
+<td>32.0</td>
+<td>31.0</td>
+</tr>
+<tr class="even">
+<td>Lawyer</td>
+<td>2.0</td>
+<td>45.0</td>
+</tr>
+<tr class="odd">
+<td>Manager</td>
+<td>1.0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td>Nurse</td>
+<td>73.0</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td>Sales Rep</td>
+<td>0.0</td>
+<td>2.0</td>
+</tr>
+<tr class="even">
+<td>Salesperson</td>
+<td>0.0</td>
+<td>32.0</td>
+</tr>
+<tr class="odd">
+<td>Scientist</td>
+<td>4.0</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td>Software Eng</td>
+<td>0.0</td>
+<td>4.0</td>
+</tr>
+<tr class="odd">
+<td>Teacher</td>
+<td>35.0</td>
+<td>5.0</td>
+</tr>
+<tr class="even">
+<td>Total</td>
+<td>185.0</td>
+<td>189.0</td>
+</tr>
+</tbody>
+</table>
+<p><img src="occu.png" class="img-fluid" alt="Heatmap"> <img src="qual.png" class="img-fluid" alt="Heatmap"> # Methodology</p>
+</section>
+<section id="results" class="level1">
+<h1>Results</h1>
+<p><img src="cfm.png" class="img-fluid" alt="Heatmap"> Accuracy of the random forest classifier: 0.88</p>
+</section>
+<section id="discussion-and-implications" class="level1">
+<h1>Discussion and Implications</h1>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<p>
+</p><pre class="mermaid mermaid-js" data-tooltip-selector="#mermaid-tooltip-1">sequenceDiagram
+  participant CorDarryl
+  participant Willa
+  Willa-&gt;&gt;CorDarryl: Why does the SVM Model take so long to run?
+  loop Healthcheck
+    CorDarryl-&gt;&gt;Willa: Maybe we consider tuning and potentially doing an additional anaysis?
+  end
+  Note right of Willa: We will get through this &lt;br/&gt; Positive Vibes!
+  CorDarryl--&gt;&gt;Willa: Great!
+  Willa-&gt;&gt;CorDarryl: How about you?
+  CorDarryl--&gt;&gt;Willa: Jolly good!
+</pre>
+<div id="mermaid-tooltip-1" class="mermaidTooltip">
+
+</div>
+<p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+</section>
+<section id="appendix" class="level1">
+<h1>Appendix</h1>
+<p>To learn more about Quarto websites visit <a href="https://quarto.org/docs/websites" class="uri">https://quarto.org/docs/websites</a>.</p>
+<pre class="{r}"><code>library(reticulate)
+version &lt;- "3.11.3"
+install_python(version = version)
+virtualenv_create("my-python", python_version = version)</code></pre>
+<pre class="{r}"><code>use_virtualenv("my-python", required = TRUE)
+virtualenv_install(envname = "my-python", "matplotlib", ignore_installed = FALSE, pip_options = character())
+virtualenv_install(envname = "my-python", "numpy", ignore_installed = FALSE, pip_options = character())
+virtualenv_install(envname = "my-python", "pandas", ignore_installed = FALSE, pip_options = character())</code></pre>
+<div class="cell" data-execution_count="1">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> LabelEncoder</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>sleep <span class="op">=</span> pd.read_csv(<span class="st">'/Users/Shared/Python/Sleep_health_and_lifestyle_dataset.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="2">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#look at overview of dataset</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>sleep.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 374 entries, 0 to 373
+Data columns (total 13 columns):
+ #   Column                   Non-Null Count  Dtype  
+---  ------                   --------------  -----  
+ 0   Person ID                374 non-null    int64  
+ 1   Gender                   374 non-null    object 
+ 2   Age                      374 non-null    int64  
+ 3   Occupation               374 non-null    object 
+ 4   Sleep Duration           374 non-null    float64
+ 5   Quality of Sleep         374 non-null    int64  
+ 6   Physical Activity Level  374 non-null    int64  
+ 7   Stress Level             374 non-null    int64  
+ 8   BMI Category             374 non-null    object 
+ 9   Blood Pressure           374 non-null    object 
+ 10  Heart Rate               374 non-null    int64  
+ 11  Daily Steps              374 non-null    int64  
+ 12  Sleep Disorder           155 non-null    object 
+dtypes: float64(1), int64(7), object(5)
+memory usage: 38.1+ KB</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="3">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sleep.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="3">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Person ID</th>
+      <th>Age</th>
+      <th>Sleep Duration</th>
+      <th>Quality of Sleep</th>
+      <th>Physical Activity Level</th>
+      <th>Stress Level</th>
+      <th>Heart Rate</th>
+      <th>Daily Steps</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>374.000000</td>
+      <td>374.000000</td>
+      <td>374.000000</td>
+      <td>374.000000</td>
+      <td>374.000000</td>
+      <td>374.000000</td>
+      <td>374.000000</td>
+      <td>374.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>187.500000</td>
+      <td>42.184492</td>
+      <td>7.132086</td>
+      <td>7.312834</td>
+      <td>59.171123</td>
+      <td>5.385027</td>
+      <td>70.165775</td>
+      <td>6816.844920</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>108.108742</td>
+      <td>8.673133</td>
+      <td>0.795657</td>
+      <td>1.196956</td>
+      <td>20.830804</td>
+      <td>1.774526</td>
+      <td>4.135676</td>
+      <td>1617.915679</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1.000000</td>
+      <td>27.000000</td>
+      <td>5.800000</td>
+      <td>4.000000</td>
+      <td>30.000000</td>
+      <td>3.000000</td>
+      <td>65.000000</td>
+      <td>3000.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>94.250000</td>
+      <td>35.250000</td>
+      <td>6.400000</td>
+      <td>6.000000</td>
+      <td>45.000000</td>
+      <td>4.000000</td>
+      <td>68.000000</td>
+      <td>5600.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>187.500000</td>
+      <td>43.000000</td>
+      <td>7.200000</td>
+      <td>7.000000</td>
+      <td>60.000000</td>
+      <td>5.000000</td>
+      <td>70.000000</td>
+      <td>7000.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>280.750000</td>
+      <td>50.000000</td>
+      <td>7.800000</td>
+      <td>8.000000</td>
+      <td>75.000000</td>
+      <td>7.000000</td>
+      <td>72.000000</td>
+      <td>8000.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>374.000000</td>
+      <td>59.000000</td>
+      <td>8.500000</td>
+      <td>9.000000</td>
+      <td>90.000000</td>
+      <td>8.000000</td>
+      <td>86.000000</td>
+      <td>10000.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="4">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sleep.Occupation.unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>array(['Software Engineer', 'Doctor', 'Sales Representative', 'Teacher',
+       'Nurse', 'Engineer', 'Accountant', 'Scientist', 'Lawyer',
+       'Salesperson', 'Manager'], dtype=object)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="5">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sleep.groupby(<span class="st">'Occupation'</span>).agg(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    num_occ<span class="op">=</span>(<span class="st">'Occupation'</span>, <span class="st">'size'</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>).reset_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="5">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Occupation</th>
+      <th>num_occ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Accountant</td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Doctor</td>
+      <td>71</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Engineer</td>
+      <td>63</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Lawyer</td>
+      <td>47</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Manager</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Nurse</td>
+      <td>73</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Sales Representative</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Salesperson</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Scientist</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Software Engineer</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Teacher</td>
+      <td>40</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="6">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> occupation_group(row):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> row[<span class="st">"Occupation"</span>] <span class="kw">in</span> [<span class="st">"Salesperson"</span>, <span class="st">"Sales Representative"</span>, <span class="st">"Manager"</span>]:</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Sales"</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> row[<span class="st">"Occupation"</span>] <span class="kw">in</span> [<span class="st">"Software Engineer"</span>, <span class="st">"Scientist"</span>, <span class="st">"Accountant"</span>]:</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"STEM"</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> row[<span class="st">"Occupation"</span>] <span class="kw">in</span> [<span class="st">"Doctor"</span>, <span class="st">"Nurse"</span>]:</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Medical"</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> row[<span class="st">"Occupation"</span>]</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>sleep[<span class="st">"Occupation_Group"</span>] <span class="op">=</span> sleep.<span class="bu">apply</span>(occupation_group, axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="7">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the distribution based on Age</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>ax.hist(sleep[<span class="st">'Age'</span>], bins<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Distribution of Ages'</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Age'</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Frequency'</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-8-output-1.png" width="808" height="449"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sleep.groupby(<span class="st">'Stress Level'</span>).agg(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    num_individuals<span class="op">=</span>(<span class="st">'Stress Level'</span>, <span class="st">'size'</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>).reset_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="8">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Stress Level</th>
+      <th>num_individuals</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3</td>
+      <td>71</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4</td>
+      <td>70</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>5</td>
+      <td>67</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>6</td>
+      <td>46</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>7</td>
+      <td>50</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>8</td>
+      <td>70</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the distribution based on Age</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>ax.hist(sleep[<span class="st">'Sleep Duration'</span>], bins<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Distribution of Sleep Duration'</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Sleep Duration'</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'Frequency'</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Figure out who is 8.5?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-10-output-1.png" width="808" height="449"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="10">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sleep.groupby(<span class="st">'Quality of Sleep'</span>).agg(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    num_individuals<span class="op">=</span>(<span class="st">'Quality of Sleep'</span>, <span class="st">'size'</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>).reset_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="10">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Quality of Sleep</th>
+      <th>num_individuals</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>6</td>
+      <td>105</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>7</td>
+      <td>77</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>8</td>
+      <td>109</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>9</td>
+      <td>71</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="11">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sleep.groupby(<span class="st">'Gender'</span>).agg(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    num_occ<span class="op">=</span>(<span class="st">'Gender'</span>, <span class="st">'size'</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>).reset_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="11">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Gender</th>
+      <th>num_occ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Female</td>
+      <td>185</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Male</td>
+      <td>189</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="12">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>grouped_data <span class="op">=</span> sleep.groupby([<span class="st">'Gender'</span>, <span class="st">'Occupation'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'n'</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivot the data to get 'Gender' as columns and 'Occupation' as index</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>pivot_data <span class="op">=</span> grouped_data.pivot(index<span class="op">=</span><span class="st">'Occupation'</span>, columns<span class="op">=</span><span class="st">'Gender'</span>, values<span class="op">=</span><span class="st">'n'</span>).fillna(<span class="dv">0</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename the columns and reset the index</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>pivot_data.columns.name <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>pivot_data <span class="op">=</span> pivot_data.reset_index()</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>pivot_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="12">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Occupation</th>
+      <th>Female</th>
+      <th>Male</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Accountant</td>
+      <td>36.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Doctor</td>
+      <td>2.0</td>
+      <td>69.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Engineer</td>
+      <td>32.0</td>
+      <td>31.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Lawyer</td>
+      <td>2.0</td>
+      <td>45.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Manager</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Nurse</td>
+      <td>73.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Sales Representative</td>
+      <td>0.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Salesperson</td>
+      <td>0.0</td>
+      <td>32.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Scientist</td>
+      <td>4.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Software Engineer</td>
+      <td>0.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Teacher</td>
+      <td>35.0</td>
+      <td>5.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="13">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>grouped_data <span class="op">=</span> sleep.groupby([<span class="st">'Stress Level'</span>, <span class="st">'Occupation'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'n'</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivot the data to get 'Gender' as columns and 'Occupation' as index</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>pivot_data <span class="op">=</span> grouped_data.pivot(index<span class="op">=</span><span class="st">'Occupation'</span>, columns<span class="op">=</span><span class="st">'Stress Level'</span>, values<span class="op">=</span><span class="st">'n'</span>).fillna(<span class="dv">0</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename the columns and reset the index</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>pivot_data.columns.name <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>pivot_data <span class="op">=</span> pivot_data.reset_index()</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>pivot_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="13">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Occupation</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Accountant</td>
+      <td>2.0</td>
+      <td>26.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>6.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Doctor</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>32.0</td>
+      <td>0.0</td>
+      <td>33.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Engineer</td>
+      <td>34.0</td>
+      <td>9.0</td>
+      <td>16.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Lawyer</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>44.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Manager</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Nurse</td>
+      <td>31.0</td>
+      <td>4.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>32.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Sales Representative</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Salesperson</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>32.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Scientist</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Software Engineer</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Teacher</td>
+      <td>0.0</td>
+      <td>31.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>5.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="14">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the heatmap using seaborn</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>sns.heatmap(pivot_data.set_index(<span class="st">'Occupation'</span>), annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'YlGnBu'</span>, fmt<span class="op">=</span><span class="st">'g'</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the title and labels</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Stress Level vs Occupation Heatmap"</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Stress Level"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Occupation"</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the heatmap</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-15-output-1.png" width="674" height="449"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="15">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>grouped_data <span class="op">=</span> sleep.groupby([<span class="st">'Quality of Sleep'</span>, <span class="st">'Stress Level'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'Total Counts'</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivot the data to create a heatmap</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>pivot_data <span class="op">=</span> grouped_data.pivot(index<span class="op">=</span><span class="st">'Stress Level'</span>, columns<span class="op">=</span><span class="st">'Quality of Sleep'</span>, values<span class="op">=</span><span class="st">'Total Counts'</span>).fillna(<span class="dv">0</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the heatmap using seaborn</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>sns.heatmap(pivot_data, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'YlGnBu'</span>, fmt<span class="op">=</span><span class="st">'g'</span>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Quality of Sleep'</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Stress Level'</span>)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Heatmap of Quality of Sleep vs. Stress Level'</span>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-16-output-1.png" width="741" height="523"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="16">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select some columns that might have a correlation</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>numerical_data <span class="op">=</span> sleep[[<span class="st">'Age'</span>, <span class="st">'Sleep Duration'</span>,<span class="st">'Quality of Sleep'</span>,<span class="st">'Physical Activity Level'</span>, <span class="st">'Stress Level'</span>,<span class="st">'Heart Rate'</span>, <span class="st">'Daily Steps'</span>]]</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>correlation_matrix <span class="op">=</span> numerical_data.corr()</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the heatmap and use a new color sheme</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.heatmap(correlation_matrix, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">"PuOr"</span>)<span class="op">;</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> ax.get_figure()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-17-output-1.png" width="687" height="551"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="17">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> ConfusionMatrixDisplay</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>sleep <span class="op">=</span> sleep.fillna(<span class="st">"0"</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'sleep' is your DataFrame</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> sleep.drop(columns<span class="op">=</span>[<span class="st">'Person ID'</span>, <span class="st">'Sleep Disorder'</span>, <span class="st">'Occupation_Group'</span>, <span class="st">'Blood Pressure'</span>])</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> sleep[<span class="st">'Sleep Disorder'</span>]</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'other_data' is another DataFrame containing the 'Medical' column</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sure the column name is correct, and there are no leading/trailing whitespaces.</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's say the correct column name is 'Medical'. If not, replace 'Medical' with the correct column name.</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="co">#other_data = x['Medical']</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>label_encoder <span class="op">=</span> LabelEncoder()</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>categorical_cols <span class="op">=</span> [<span class="st">'Gender'</span>, <span class="st">'Occupation'</span>, <span class="st">'BMI Category'</span>, <span class="st">'Stress Level'</span>]</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> categorical_cols:</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    x[col] <span class="op">=</span> label_encoder.fit_transform(x[col])</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>x_train, x_test, y_train, y_test <span class="op">=</span> train_test_split(x, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="co"># One-hot encode the categorical columns (if needed)</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>encoder <span class="op">=</span> OneHotEncoder()</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>x_train_encoded <span class="op">=</span> encoder.fit_transform(x_train[categorical_cols])</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>x_test_encoded <span class="op">=</span> encoder.transform(x_test[categorical_cols])</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the one-hot encoded features with other numerical features</span></span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>x_train_final <span class="op">=</span> np.hstack((x_train_encoded.toarray(), x_train.drop(columns<span class="op">=</span>categorical_cols).values))</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>x_test_final <span class="op">=</span> np.hstack((x_test_encoded.toarray(), x_test.drop(columns<span class="op">=</span>categorical_cols).values))</span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Now you can proceed with the RandomForestClassifier fitting and prediction steps</span></span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>rf_classifier <span class="op">=</span> RandomForestClassifier(n_estimators<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>rf_classifier.fit(x_train_final, y_train)</span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> rf_classifier.predict(x_test_final)</span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy of the random forest classifier:"</span>, accuracy)</span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>ConfusionMatrixDisplay.from_predictions(y_test, y_pred, labels <span class="op">=</span> rf_classifier.classes_, display_labels<span class="op">=</span>rf_classifier.classes_, cmap <span class="op">=</span> <span class="st">"YlGnBu"</span>)</span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a><span class="co">#y_test, y_pred, labels = rf_classifier.classes_</span></span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a><span class="co">#disp.plot()</span></span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy of the random forest classifier: 0.88</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-18-output-2.png" width="571" height="429"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="18">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> ConfusionMatrixDisplay</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> LabelEncoder, OneHotEncoder</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'sleep' is your DataFrame</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> sleep.drop(columns<span class="op">=</span>[<span class="st">'Person ID'</span>, <span class="st">'Sleep Disorder'</span>, <span class="st">'Occupation_Group'</span>, <span class="st">'Blood Pressure'</span>])</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> sleep[<span class="st">'Sleep Disorder'</span>]</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>label_encoder <span class="op">=</span> LabelEncoder()</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>categorical_cols <span class="op">=</span> [<span class="st">'Gender'</span>, <span class="st">'Occupation'</span>, <span class="st">'BMI Category'</span>, <span class="st">'Stress Level'</span>]</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> categorical_cols:</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    x[col] <span class="op">=</span> label_encoder.fit_transform(x[col])</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="co"># One-hot encode the categorical columns (if needed)</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>encoder <span class="op">=</span> OneHotEncoder()</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>x_encoded <span class="op">=</span> encoder.fit_transform(x[categorical_cols])</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the one-hot encoded features with other numerical features</span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>x_final <span class="op">=</span> np.hstack((x_encoded.toarray(), x.drop(columns<span class="op">=</span>categorical_cols).values))</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>x_train, x_test, y_train, y_test <span class="op">=</span> train_test_split(x_final, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Random Forest Classifier</span></span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>rf_classifier <span class="op">=</span> RandomForestClassifier(n_estimators<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>rf_classifier.fit(x_train, y_train)</span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a>y_pred_rf <span class="op">=</span> rf_classifier.predict(x_test)</span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a>accuracy_rf <span class="op">=</span> accuracy_score(y_test, y_pred_rf)</span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy of the random forest classifier:"</span>, accuracy_rf)</span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a>conf_matrix <span class="op">=</span> confusion_matrix(y_test, y_pred_rf)</span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Confusion Matrix:"</span>)</span>
+<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(conf_matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy of the random forest classifier: 0.88
+Confusion Matrix:
+[[42  1  0]
+ [ 1 13  2]
+ [ 1  4 11]]</code></pre>
+</div>
+</div>
+<p>#```{python} import pandas as pd from sklearn.model_selection import train_test_split from sklearn.ensemble import RandomForestClassifier from sklearn.svm import SVC from sklearn.metrics import confusion_matrix from sklearn.metrics import ConfusionMatrixDisplay from sklearn.metrics import accuracy_score from sklearn.preprocessing import LabelEncoder, OneHotEncoder</p>
+</section>
+<section id="assuming-sleep-is-your-dataframe" class="level1">
+<h1>Assuming ‘sleep’ is your DataFrame</h1>
+<p>x = sleep.drop(columns=[‘Person ID’, ‘Sleep Disorder’, ‘Occupation_Group’, ‘Blood Pressure’]) y = sleep[‘Sleep Disorder’]</p>
+<p>label_encoder = LabelEncoder() categorical_cols = [‘Gender’, ‘Occupation’, ‘BMI Category’, ‘Stress Level’] for col in categorical_cols: x[col] = label_encoder.fit_transform(x[col])</p>
+</section>
+<section id="one-hot-encode-the-categorical-columns-if-needed" class="level1">
+<h1>One-hot encode the categorical columns (if needed)</h1>
+<p>encoder = OneHotEncoder() x_encoded = encoder.fit_transform(x[categorical_cols])</p>
+</section>
+<section id="combine-the-one-hot-encoded-features-with-other-numerical-features" class="level1">
+<h1>Combine the one-hot encoded features with other numerical features</h1>
+<p>import numpy as np x_final = np.hstack((x_encoded.toarray(), x.drop(columns=categorical_cols).values))</p>
+<p>x_train, x_test, y_train, y_test = train_test_split(x_final, y, test_size=0.2, random_state=42)</p>
+</section>
+<section id="support-vector-machine-svm-classifier" class="level1">
+<h1>Support Vector Machine (SVM) Classifier</h1>
+<p>svm_classifier = SVC(kernel=‘linear’, random_state=42) svm_classifier.fit(x_train, y_train) y_pred_svm = svm_classifier.predict(x_test) accuracy_svm = accuracy_score(y_test, y_pred_svm)</p>
+<p>print(“Accuracy of the SVM classifier:”, accuracy_svm) conf_matrix = confusion_matrix(y_test, y_pred_svm) print(“Confusion Matrix:”) print(conf_matrix)</p>
+<pre><code>
+#```{python}
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.metrics import accuracy_score
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+
+# Assuming 'sleep' is your DataFrame
+x = sleep.drop(columns=['Person ID', 'Sleep Disorder', 'Occupation_Group', 'Blood Pressure'])
+y = sleep['Sleep Disorder']
+
+label_encoder = LabelEncoder()
+categorical_cols = ['Gender', 'Occupation', 'BMI Category', 'Stress Level']
+for col in categorical_cols:
+    x[col] = label_encoder.fit_transform(x[col])
+
+# One-hot encode the categorical columns (if needed)
+encoder = OneHotEncoder()
+x_encoded = encoder.fit_transform(x[categorical_cols])
+
+# Combine the one-hot encoded features with other numerical features
+import numpy as np
+x_final = np.hstack((x_encoded.toarray(), x.drop(columns=categorical_cols).values))
+
+x_train, x_test, y_train, y_test = train_test_split(x_final, y, test_size=0.2, random_state=42)
+
+# Support Vector Machine (SVM) Classifier
+svm_classifier = SVC(kernel='linear', random_state=42)
+svm_classifier.fit(x_train, y_train)
+y_pred_svm = svm_classifier.predict(x_test)
+accuracy_svm = accuracy_score(y_test, y_pred_svm)
+
+print("Accuracy of the SVM classifier:", accuracy_svm)
+conf_matrix = confusion_matrix(y_test, y_pred_svm)
+print("Confusion Matrix:")
+print(conf_matrix)</code></pre>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
